@@ -5,8 +5,8 @@ Mark a feature `(in progress)` while work is open, and check it when all its
 PRs have merged.
 
 M1 and M2 can be developed in parallel with shared design work. Complete M1's
-performance evaluation early so its findings can guide M2. M2's acceptance
-requires the persistence and restoration capability delivered by M1.
+performance evaluation early so its findings can guide M2. M2 depends on M1
+being able to save and restore the cache correctly.
 
 ## M1: Persistent scan cache
 
@@ -24,10 +24,9 @@ steps, or incremental computation in later build stages.
   without rewriting the entire disk cache.
 - Damaged cache data, interrupted writes, and incompatible cache versions do not
   cause incorrect results, panics, or cache-related build failures.
-- Representative restart scenarios complete faster with persistent caching than
-  without it. Comparisons use the same inputs and a new process in both cases,
-  including validation, reading, deserialization, required recomputation, and
-  write costs. Rebuild measurements also account for cache maintenance costs.
+- After restarting Rolldown, benchmark projects build faster with the saved cache
+  than without it, even after counting the time spent checking, loading, and
+  updating the cache.
 
 **Deliverables:**
 
@@ -36,9 +35,9 @@ steps, or incremental computation in later build stages.
   worktree. Cover interrupted writes, damaged data, and version compatibility.
   Coordinate the storage design with M2's sharing requirements.
 - [ ] **Serialization and deserialization.** Save and restore the scan data and
-  side-effect records needed to continue incremental builds. Select what to
-  persist based on correctness and measured overall performance; persisting the
-  full scan state or AST is not required.
+  side-effect records needed to continue incremental builds. Choose which scan
+  data to save based on performance measurements, while keeping build results
+  correct.
 - [ ] **Scan dependency tracking, invalidation, and side effects.** Define and
   track the inputs needed to validate cached results after restarts, including
   changes made while Rolldown was stopped. Handle required side effects when
@@ -60,16 +59,16 @@ cache.
   directory and the shared project-global cache directory.
 - A project's cache can be uploaded and restored on another machine on the same
   platform, including in CI, and valid entries are reused.
-- Representative shared-cache scenarios reduce build time compared with builds
-  without a reusable cache, including validation, restoration, and write costs.
 - Shared cache use preserves M1's incremental write and safety guarantees.
+- Benchmark projects build faster with a shared cache than without one, even
+  after counting the time spent checking, loading, and updating the cache.
 
 **Deliverables:**
 
 - [ ] **Project-local and project-global storage.** Define and implement what is
   stored in each directory and how concurrent worktree builds safely share and
   update cache data.
-- [ ] **Working-directory-agnostic restoration and validation.** Handle
+- [ ] **Cache reuse across working directories.** Handle
   path-dependent data and input differences across worktrees and project moves,
   preserving reuse where results remain valid.
 - [ ] **Same-platform cache transfer.** Support saving and restoring the project's
@@ -85,16 +84,12 @@ stages is not required.
 
 **Done when:**
 
-- Selected representative rebuild scenarios complete faster than M2, including
-  the cost of validating and maintaining the new caches.
 - Builds using the new reuse paths produce the same output and required behavior
   as builds without caching, including after changes that affect multiple modules.
-- Changes outside the supported reuse scope still produce correct builds by
-  running the required computations.
-- New cache entries support the same persistence and sharing capabilities as
-  M1 and M2: reuse after restarts and across working directories and worktrees,
-  incremental writes, safe parallel worktree builds, and safe handling of damaged
-  data, interrupted writes, and incompatible versions.
+- Computations that do not support caching still run normally and produce
+  correct results.
+- Benchmark projects rebuild faster than with M2 alone, even after counting the
+  time spent checking, loading, and updating the new caches.
 
 **Deliverables:**
 
@@ -103,15 +98,9 @@ stages is not required.
   opportunities most likely to improve overall rebuild performance.
 - [ ] **Reuse boundaries and validation.** Design candidate computation and cache
   boundaries, including dependencies, invalidation, and required side effects.
-  Use targeted experiments to select a scope with demonstrated benefits before
-  committing to production implementation.
-- [ ] **Incremental implementation and verification.** Implement the selected
-  reuse paths with the persistence, incremental write, sharing, and safety
-  capabilities from M1 and M2. Verify correctness and overall performance against
-  M2, including
-  cache restoration and write costs.
-  Document supported scenarios and limits. Further subdivision of scan caching
-  remains a separate candidate rather than a required part of this milestone.
+  Test the proposed approaches and use the results to decide what to implement.
+- [ ] **Implementation and testing.** Implement the selected approach and check
+  whether it improves performance compared with M2.
 
 ## Template
 
