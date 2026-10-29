@@ -8,7 +8,7 @@ created: YYYY-MM-DD
 Copy this file to NNNN-short-name.md. Use the next free 4-digit number.
 
 - status: `draft` while the design is open, `implemented` once the code ships.
-- Follow principles.md. If this design breaks a principle, say which and why.
+- Follow ../principles.md. If this design breaks a principle, say which and why.
 - Keep the record short. Explain why the code has its shape. The code and
   tests define the exact behavior.
 - When a later decision changes the behavior, update this record. Delete a

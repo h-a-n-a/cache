@@ -1,7 +1,7 @@
 # Design principles
 
-Every design doc in this folder follows these principles. When a design must
-break one, the design doc says which one and why.
+Every design doc in [`design-docs/`](design-docs/) follows these principles.
+When a design must break one, the design doc says which one and why.
 
 ## 1. Principle name
 

@@ -7,11 +7,12 @@ Rolldown.
 
 ## Layout
 
-| Path                                                     | What it holds                                                        |
-| -------------------------------------------------------- | -------------------------------------------------------------------- |
-| [`design-docs/principles.md`](design-docs/principles.md) | Rules that every design follows. Read this first.                    |
-| [`design-docs/`](design-docs/)                           | One record per feature or decision: what and why.                    |
-| [`milestones.md`](milestones.md)                         | The order of work, the features in each milestone, and their status. |
+| Path                             | What it holds                                                                     |
+| -------------------------------- | --------------------------------------------------------------------------------- |
+| [`goals.md`](goals.md)           | The end result of caching in Rolldown, and what is out of scope. Read this first. |
+| [`principles.md`](principles.md) | Rules that every design follows.                                                  |
+| [`design-docs/`](design-docs/)   | One record per feature or decision: what and why.                                 |
+| [`milestones.md`](milestones.md) | The order of work, the features in each milestone, and their status.              |
 
 ## Adding a design doc
 
