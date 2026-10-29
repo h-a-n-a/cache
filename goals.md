@@ -6,9 +6,12 @@ The end result of caching in Rolldown. Each milestone in
 ## Goals
 
 1. **Reduce repeated computation.** Reuse valid computation results whenever
-   their inputs match.
+   their inputs match, including results from JavaScript plugins, so cache hits
+   avoid repeated work on both the Rust and JavaScript sides.
    Check: verify reuse for matching inputs, including between build and dev,
-   and recomputation when relevant inputs change and no valid result is cached.
+   and confirm that cache hits skip the corresponding JavaScript plugin
+   computations. Verify recomputation when relevant inputs change and no valid
+   result is cached.
 
 2. **Preserve reuse across runs and working directories.** Support reuse across
    process restarts, worktrees, project moves, and machines on the same platform.
