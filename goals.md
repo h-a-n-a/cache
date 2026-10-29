@@ -5,9 +5,29 @@ The end result of caching in Rolldown. Each milestone in
 
 ## Goals
 
-1. **Goal name.** The end result a user sees, in one sentence.
-   Check: how to prove the goal holds, such as a test or a benchmark.
+1. **Reduce repeated computation.** Reuse valid computation results whenever
+   their inputs match.
+   Check: verify reuse for matching inputs, including between build and dev,
+   and recomputation when relevant inputs change and no valid result is cached.
+
+2. **Preserve reuse across runs and working directories.** Support reuse across
+   process restarts, worktrees, project moves, and machines on the same platform.
+   Check: verify reuse in each scenario, including CI cache upload and download.
+   Moving a project must not invalidate the entire cache; work affected by the
+   path change may run again.
+
+3. **Keep results correct automatically.** Handle input changes without requiring
+   users to clear the cache.
+   Check: compare cached and clean builds after edits, branch changes, worktree
+   changes, and changes made while Rolldown was stopped; verify matching output
+   and required behavior without manual cache cleanup.
+
+4. **Recover from unusable caches.** Missing, damaged, or incompatible caches may
+   slow down a build, but must not cause a panic or prevent an otherwise valid build.
+   Check: remove, corrupt, or provide incompatible cache data; verify that the
+   build completes with correct results by recomputing the required work.
 
 ## Non-goals
 
-- Something out of scope, and why.
+- **Cross-platform cache reuse.** Reuse is limited to the same platform.
+- **Cross-project cache reuse.** Reuse is limited to the same project.
