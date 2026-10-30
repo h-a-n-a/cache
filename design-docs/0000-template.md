@@ -8,8 +8,8 @@ implementation: []
 <!--
 Copy this file to NNNN-short-name.md. Use the next free 4-digit number.
 
-- status: `proposal` while under discussion; set to `accepted` when the design
-  is approved for merge into main. This does not mean it is implemented.
+- status: `proposal` while exploring or discussing the design; `accepted` once
+  explicitly chosen. Either may be on main or have implementation PRs.
 - implementation: list the URLs of all Rolldown PRs that implement this design,
   including every relevant PR in a stack. Leave empty until PRs exist.
 - See ../README.md for design status and ../AGENTS.md for maintenance rules.

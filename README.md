@@ -46,21 +46,23 @@ status: proposal
 implementation: []
 ```
 
-- `proposal`: the design is under discussion.
-- `accepted`: the design has been approved for merge into `main`. Documents on
-  `main` describe the current accepted design, which may not yet be implemented.
+- `proposal`: the design is still being explored or discussed.
+- `accepted`: an explicit decision has been made to adopt the design.
+
+Either status can appear on `main`. Implementation and validation may start
+before acceptance. Merging a document or an implementation PR does not
+automatically accept the design, and acceptance does not imply completion.
 
 List all Rolldown PR URLs that implement the design under `implementation`,
 including every relevant PR in a stack. Do not link only the top PR. A PR link
 does not imply completion; use the PRs to check implementation progress and
 [`milestones.md`](milestones.md) to track delivery and acceptance checks.
 
-For example, a storage design can be accepted here while its Rolldown PR is
-still open:
+For example, a storage prototype may reveal costs that lead to changes in the
+proposal before the design is accepted:
 
 ```mermaid
 flowchart LR
-    P[Proposal] --> A[Accepted design on main]
-    A --> R[Rolldown implementation PRs]
-    R --> V[Merged and acceptance checks met]
+    P[Proposal] <--> V[Implementation and validation]
+    P --> A[Explicit decision to accept]
 ```
