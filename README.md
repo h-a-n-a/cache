@@ -55,24 +55,23 @@ PRs must not merge until the design is accepted. Acceptance does not imply that
 implementation is complete.
 
 List all Rolldown PR URLs that implement the design under `implementation`,
-including every relevant PR in a stack. Do not link only the top PR. A PR link
-does not imply completion; use the PRs to check implementation progress and
-[`milestones.md`](milestones.md) to track delivery and acceptance checks.
+including every relevant PR in a stack. Track implementation through these PRs
+and delivery through [`milestones.md`](milestones.md).
 
 ## Workflow
 
 1. Start from a milestone and discuss the problem and possible approaches.
 2. Create or update a design doc with `status: proposal`. Describe the proposed
    behavior, open questions, and validation plan, and link it from the milestone.
-3. Alternate research, discussion, and implementation experiments as needed.
-   Update the design doc with the findings and keep it as `proposal` while exploring.
+3. Refine the proposal through research, discussion, and implementation
+   experiments as needed.
 4. Mark the design `accepted` once an explicit decision is made to adopt it.
 5. Complete implementation, review, and required checks, then merge the
    Rolldown PRs.
 6. Verify the acceptance criteria and update the milestone.
 
 For example, a storage prototype may reveal costs that require revising the
-proposal before acceptance. Each design doc defines its own validation steps.
+proposal before acceptance.
 
 ```mermaid
 flowchart LR
