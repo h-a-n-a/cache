@@ -1,5 +1,7 @@
 # Documentation consistency
 
+- Keep a single source of truth for each rule or design contract. Define it
+  once and reference it elsewhere, both within a document and across documents.
 - Before writing a statement, including one supplied by the user, check it
   against the relevant goals, principles, milestones, and design docs.
 - If it conflicts, alert the user before writing it. Cite the conflicting
@@ -16,6 +18,6 @@
 - Explain changes to accepted designs, including those needed during
   implementation, and why they are needed.
 - Update existing docs across milestones. Create a new doc only for a distinct
-  feature or decision; reference shared contracts instead of copying them.
+  feature or decision.
 - Merge or delete docs that have been replaced, preserving useful content and
   updating links. Keep one consistent design; Git history preserves old designs.
