@@ -49,9 +49,10 @@ implementation: []
 - `proposal`: the design is still being explored or discussed.
 - `accepted`: an explicit decision has been made to adopt the design.
 
-Either status can appear on `main`. Implementation and validation may start
-before acceptance. Merging a document or an implementation PR does not
-automatically accept the design, and acceptance does not imply completion.
+Either status can appear on this repository's `main`. Implementation and
+validation may start while the design is a proposal, but Rolldown implementation
+PRs must not merge until the design is accepted. Acceptance does not imply that
+implementation is complete.
 
 List all Rolldown PR URLs that implement the design under `implementation`,
 including every relevant PR in a stack. Do not link only the top PR. A PR link
@@ -65,4 +66,5 @@ proposal before the design is accepted:
 flowchart LR
     P[Proposal] <--> V[Implementation and validation]
     P --> A[Explicit decision to accept]
+    A --> M[Rolldown implementation PRs may merge]
 ```
