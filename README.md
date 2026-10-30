@@ -59,12 +59,23 @@ including every relevant PR in a stack. Do not link only the top PR. A PR link
 does not imply completion; use the PRs to check implementation progress and
 [`milestones.md`](milestones.md) to track delivery and acceptance checks.
 
-For example, a storage prototype may reveal costs that lead to changes in the
-proposal before the design is accepted:
+## Workflow
+
+1. Start from a milestone and discuss the problem and possible approaches.
+2. Alternate research, design, and implementation experiments as needed. Keep
+   the design as `proposal` while exploring.
+3. Mark the design `accepted` once an explicit decision is made to adopt it.
+4. Complete implementation, review, and required checks, then merge the
+   Rolldown PRs.
+5. Verify the acceptance criteria and update the milestone.
+
+For example, a storage prototype may reveal costs that require revising the
+proposal before acceptance. Each design doc defines its own validation steps.
 
 ```mermaid
 flowchart LR
     P[Proposal] <--> V[Implementation and validation]
-    P --> A[Explicit decision to accept]
-    A --> M[Rolldown implementation PRs may merge]
+    P --> A[Accepted]
+    A --> M[Complete and merge implementation]
+    M --> C[Verify acceptance criteria]
 ```
