@@ -62,19 +62,22 @@ does not imply completion; use the PRs to check implementation progress and
 ## Workflow
 
 1. Start from a milestone and discuss the problem and possible approaches.
-2. Alternate research, design, and implementation experiments as needed. Keep
-   the design as `proposal` while exploring.
-3. Mark the design `accepted` once an explicit decision is made to adopt it.
-4. Complete implementation, review, and required checks, then merge the
+2. Create or update a design doc with `status: proposal`. Describe the proposed
+   behavior, open questions, and validation plan, and link it from the milestone.
+3. Alternate research, discussion, and implementation experiments as needed.
+   Update the design doc with the findings and keep it as `proposal` while exploring.
+4. Mark the design `accepted` once an explicit decision is made to adopt it.
+5. Complete implementation, review, and required checks, then merge the
    Rolldown PRs.
-5. Verify the acceptance criteria and update the milestone.
+6. Verify the acceptance criteria and update the milestone.
 
 For example, a storage prototype may reveal costs that require revising the
 proposal before acceptance. Each design doc defines its own validation steps.
 
 ```mermaid
 flowchart LR
-    P[Proposal] <--> V[Implementation and validation]
+    D[Discuss the problem] --> P[Write design doc as proposal]
+    P <--> V[Research, implementation and validation]
     P --> A[Accepted]
     A --> M[Complete and merge implementation]
     M --> C[Verify acceptance criteria]
