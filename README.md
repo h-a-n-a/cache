@@ -36,3 +36,48 @@ a separate principle for every goal.
    `design-docs/NNNN-short-name.md`, using the next free number.
 2. Add the feature to its milestone in [`milestones.md`](milestones.md) and
    link the new doc.
+
+## Design status and implementation
+
+Each design doc records its status and implementation PRs in its frontmatter:
+
+```yaml
+status: proposal
+implementation: []
+```
+
+- `proposal`: the design is still being explored or discussed.
+- `accepted`: an explicit decision has been made to adopt the design.
+
+Either status can appear on this repository's `main`. Implementation and
+validation may start while the design is a proposal, but Rolldown implementation
+PRs must not merge until the design is accepted. Acceptance does not imply that
+implementation is complete.
+
+List all Rolldown PR URLs that implement the design under `implementation`,
+including every relevant PR in a stack. Track implementation through these PRs
+and delivery through [`milestones.md`](milestones.md).
+
+## Workflow
+
+1. Start from a milestone and discuss the problem and possible approaches.
+2. Create or update a design doc with `status: proposal`. Describe the proposed
+   behavior, open questions, and validation plan, and link it from the milestone.
+3. Refine the proposal through research, discussion, and implementation
+   experiments as needed.
+4. Mark the design `accepted` once an explicit decision is made to adopt it.
+5. Complete implementation, review, and required checks, then merge the
+   Rolldown PRs.
+6. Verify the acceptance criteria and update the milestone.
+
+For example, a storage prototype may reveal costs that require revising the
+proposal before acceptance.
+
+```mermaid
+flowchart LR
+    D[Discuss the problem] --> P[Write design doc as proposal]
+    P <--> V[Research, implementation and validation]
+    P --> A[Accepted]
+    A --> M[Complete and merge implementation]
+    M --> C[Verify acceptance criteria]
+```
