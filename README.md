@@ -36,3 +36,31 @@ a separate principle for every goal.
    `design-docs/NNNN-short-name.md`, using the next free number.
 2. Add the feature to its milestone in [`milestones.md`](milestones.md) and
    link the new doc.
+
+## Design status and implementation
+
+Each design doc records its status and implementation PRs in its frontmatter:
+
+```yaml
+status: proposal
+implementation: []
+```
+
+- `proposal`: the design is under discussion.
+- `accepted`: the design has been approved for merge into `main`. Documents on
+  `main` describe the current accepted design, which may not yet be implemented.
+
+List all Rolldown PR URLs that implement the design under `implementation`,
+including every relevant PR in a stack. Do not link only the top PR. A PR link
+does not imply completion; use the PRs to check implementation progress and
+[`milestones.md`](milestones.md) to track delivery and acceptance checks.
+
+For example, a storage design can be accepted here while its Rolldown PR is
+still open:
+
+```mermaid
+flowchart LR
+    P[Proposal] --> A[Accepted design on main]
+    A --> R[Rolldown implementation PRs]
+    R --> V[Merged and acceptance checks met]
+```

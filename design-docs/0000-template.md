@@ -1,13 +1,18 @@
 ---
 title: Short Feature Name
-status: draft
+status: proposal
 created: YYYY-MM-DD
+implementation: []
 ---
 
 <!--
 Copy this file to NNNN-short-name.md. Use the next free 4-digit number.
 
-- status: `draft` while the design is open, `implemented` once the code ships.
+- status: `proposal` while under discussion; set to `accepted` when the design
+  is approved for merge into main. This does not mean it is implemented.
+- implementation: list the URLs of all Rolldown PRs that implement this design,
+  including every relevant PR in a stack. Leave empty until PRs exist.
+- See ../README.md for design status and ../AGENTS.md for maintenance rules.
 - Follow ../principles.md. If this design breaks a principle, say which and why.
 - Keep the record short. Explain why the code has its shape. The code and
   tests define the exact behavior.
