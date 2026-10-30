@@ -75,7 +75,46 @@ cache.
   cache across compatible machines, including through external CI cache tools.
   Use M1's measurements to guide storage and restoration choices.
 
-## M3: Incremental reuse in link and generate
+- [ ] **Define the test plan.** Decide how to measure the build performance gains
+  from sharing caches across worktrees. One possible scenario is a single
+  project with three worktrees working on non-overlapping features, comparing
+  build times with and without shared caching.
+
+## M3: Incremental computation granularity and correctness
+
+**Goal:** Improve build performance through caching of plugin computations during
+the scan stage, covering both Rust and JavaScript plugins. Explore dependency
+tracking and cache granularity while preserving correctness. The cache key API
+and whether to cache individual plugin hooks remain open design decisions.
+
+**Done when:**
+
+- When a plugin dependency changes, we must not reuse stale results. Recomputing
+  unnecessarily is OK; missing a change is not. If other bundlers also struggle
+  with certain dependencies, we can consider leaving those cases out of scope
+  for now, but we should explain which ones and why.
+- Caching plugin computations should make builds faster overall, including the
+  cost of tracking dependencies, computing cache keys, and checking, reading,
+  and writing the cache. Explore heuristics such as caching only when the input
+  exceeds a size threshold, while keeping other options open. Prefer automatic
+  decisions that don't require user configuration.
+
+**Deliverables:**
+
+- [ ] **Cache granularity.** Compare caching whole modules, caching individual
+  steps or plugin hooks, and using plugin-provided cache keys while still
+  caching whole modules. Use measurements to decide which approach works best,
+  considering both build time and cache size.
+- [ ] **Dependencies and cache key inputs.** Work out how plugins describe the
+  inputs their results depend on, such as files, environment variables, and
+  plugin options. Consider how meta-frameworks can supply additional cache key
+  information, including whether Vite or Rolldown project config should expose
+  a global `cacheKey`.
+- [ ] **Cache key computation.** Keep communication between JavaScript and Rust
+  low when computing cache keys. Explore options such as Handlebars-style
+  templates instead of callbacks.
+
+## M4: Incremental reuse in link and generate
 
 **Goal:** Reduce rebuild time by reusing unaffected work in the link and generate
 stages, with persistent and shared caching as in M1 and M2. Use their
@@ -117,3 +156,4 @@ stages is not required.
 
 - [ ] Feature name. Design: [0001](design-docs/0001-feature-name.md). PRs: rolldown/rolldown#0000
 ```
+
