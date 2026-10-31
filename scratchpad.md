@@ -36,8 +36,44 @@ flowchart LR
     Q -->|No| L[Consider local storage or recomputation]
 ```
 
-Open question: which actual scan records need path adaptation, and what would
-that adaptation cost compared with the computation it saves?
-
 Here, sharing means worktrees of the same project. Cross-project reuse remains
 outside the agreed goals.
+
+### Open question: path handling in M2
+
+[M2](https://github.com/h-a-n-a/cache/pull/2) requires reuse across worktrees
+and project moves without invalidating the entire cache because the root path
+changed. This does not necessarily require every cached result to be
+path-independent.
+
+Making records reusable across directories may require path conversion during
+storage and restoration. That work could add overhead for users who only build
+in one worktree.
+
+Questions to explore:
+
+- Which records need path conversion, and which can already be shared as they are?
+- When does the reuse benefit outweigh the conversion cost?
+- Should Rolldown choose automatically, or should users configure local and
+  shared caching?
+- Should path conversion be configurable separately from cache storage?
+
+For example, a recorded dependency at `/A/theme.json` may be stored relative
+to the project root and restored as `/B/theme.json`. An absolute path embedded
+in plugin-generated code may have meaning that cannot be preserved by simply
+replacing the root.
+
+```mermaid
+flowchart TD
+    R[Cached record] --> P{Depends on the worktree path?}
+    P -->|No| G[Candidate for shared reuse]
+    P -->|Yes| S{Can it be relocated safely?}
+    S -->|Yes| C[Compare conversion cost with reuse benefit]
+    S -->|No| L[Consider local reuse or recomputation]
+```
+
+Local/global storage and path conversion are separate choices. Shared storage
+can hold records that need no conversion. Enabling conversion does not make
+every result safe to share.
+
+No placement policy, conversion method, or user-facing option is decided.
