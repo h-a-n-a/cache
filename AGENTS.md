@@ -34,7 +34,13 @@
   implemented behavior, planned changes, and open questions.
 - Explain changes to accepted designs, including those needed during
   implementation, and why they are needed.
-- Update existing docs across milestones. Create a new doc only for a distinct
-  feature or decision.
+- Update the existing design doc when a feature evolves across milestones.
+  Do not create a separate version for each milestone.
+- Split a topic into a separate doc only when it has a distinct problem,
+  a clear contract, and its own design choices and verification.
+  Possible future reuse alone is not a reason to split.
+- When splitting a doc, move the detailed rules into the new doc.
+  Keep a short description of the contract and a link in the original doc.
+  Do not maintain the same rules in both.
 - Merge or delete docs that have been replaced, preserving useful content and
   updating links. Keep one consistent design; Git history preserves old designs.
