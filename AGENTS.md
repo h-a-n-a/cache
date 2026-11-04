@@ -32,6 +32,9 @@
 
 - Base designs on current code, agreed goals, and milestone scope. Distinguish
   implemented behavior, planned changes, and open questions.
+- Design for the current milestone only. Where a later milestone is expected
+  to change a decision, note that next to the decision and say why. Do not
+  change the decision to prepare for it.
 - Explain changes to accepted designs, including those needed during
   implementation, and why they are needed.
 - Update the existing design doc when a feature evolves across milestones.
