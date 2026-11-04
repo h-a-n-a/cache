@@ -32,7 +32,8 @@ steps, or incremental computation in later build stages.
 - [ ] **Persistent cache storage and incremental writes.** Define and implement
   the cache layout, stored data, and incremental write model for the original
   worktree. Cover interrupted writes, damaged data, and version compatibility.
-  Coordinate the storage design with M2's sharing requirements.
+  Note where M2's sharing requirements are expected to change the storage
+  design.
 - [ ] **Serialization and deserialization.** Save and restore the scan data and
   side-effect records needed to continue incremental builds. Choose which scan
   data to save based on performance measurements, while keeping build results
