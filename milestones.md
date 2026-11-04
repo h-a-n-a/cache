@@ -4,9 +4,8 @@ Each feature links to its design doc and to the rolldown PRs that implement it.
 Mark a feature `(in progress)` while work is open, and check it when all its
 PRs have merged.
 
-M1 and M2 can be developed in parallel with shared design work. Complete M1's
-performance evaluation early so its findings can guide M2. M2 depends on M1
-being able to save and restore the cache correctly.
+M1 and M2 can be developed in parallel with shared design work. M2 depends on
+M1 being able to save and restore the cache correctly.
 
 ## M1: Persistent scan cache
 
@@ -73,7 +72,6 @@ cache.
   preserving reuse where results remain valid.
 - [ ] **Same-platform cache transfer.** Support saving and restoring the project's
   cache across compatible machines, including through external CI cache tools.
-  Use M1's measurements to guide storage and restoration choices.
 
 - [ ] **Define the test plan.** Decide how to measure the build performance gains
   from sharing caches across worktrees. One possible scenario is a single
