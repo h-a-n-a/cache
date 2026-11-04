@@ -71,10 +71,13 @@ This still relies on a sufficient precision estimate and does not detect content
 
 ## Open questions
 
-- How should we handle a file changing between a plugin reading it and Rolldown hashing it? We defer this edge case for now.
-- The hash algorithm, validation timing, and whether to track file metadata remain open.
-- Should we add an `mtime` + `safeTime` optimization to avoid hashing files when timestamp checks pass?
-- Should we add platform-specific optimizations, such as using a saved FSEvents event ID on macOS to query changes since the previous run? How should we fall back when event history is unavailable or incomplete?
+1. How should we handle a file changing between a plugin reading it and Rolldown hashing it? We defer this edge case for now.
+2. The hash algorithm, validation timing, and whether to track file metadata remain open.
+3. Should we add an `mtime` + `safeTime` optimization to avoid hashing files when timestamp checks pass?
+
+## Future work
+
+- Platform-specific optimizations, such as using a saved FSEvents event ID on macOS to query changes since the previous run. This needs a fallback for when event history is unavailable or incomplete.
 
 ## Verification
 
@@ -84,7 +87,7 @@ This still relies on a sufficient precision estimate and does not detect content
 4. Previously missing files: Build `a.ts` with `theme.json` registered as a dependency but missing. Create `theme.json` while stopped, then restart. Expect its path to be reported as changed and `a.ts` to be rebuilt.
 5. Preserved `mtime`: Change `theme.json` contents, restore its original `mtime`, and restart. Expect its path to be reported as changed.
 6. Shared files: Register `theme.json` as a dependency of both `a.ts` and `b.ts`. Expect validation to check it once and report its path once if changed.
-7. Changes during validation: Modify a file while validation reads it. Use this case to verify the concurrent-change policy once it is defined.
+7. Changes during the build: Change `theme.json` after the plugin reads it but before Rolldown hashes it, for example from a test plugin hook that rewrites the file after reading it. Restart without further edits. The saved hash already matches the new contents, so a hash comparison alone reports no change. Use this case to verify the policy for open question 1 once it is defined. A build using the saved cache must not reuse the result made from the old contents.
 8. Build correctness: After editing `theme.json`, compare the output of a build using the saved cache with a clean build using the same inputs. Expect matching output.
 9. Performance: Measure restart builds with no edits and with one edited file. Include validation, restoration, and cache-update costs, and compare total time with a build without saved cache.
 
